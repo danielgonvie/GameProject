@@ -11,11 +11,12 @@ class Player {
       this.posY = gameHeight * 0.98 - this.height ;
       this.posY0 = gameHeight * 0.98 - this.height ;
       this.vy = 1;
-      this.gravity = 0.4;
+      this.gravity = 0.8;
       this.gameWidth = gameWidth;
   
       this.frames = 3;
       this.framesIndex = 0;
+      this.state =false;
   
       this.keys = keys;
       this.bullets = [];
@@ -54,21 +55,26 @@ class Player {
         if(this.framesIndex > 2) this.framesIndex = 0;
       }
     } */
-  
+    
     setListeners() {
       document.addEventListener('keydown', (e) => {
         switch(e.keyCode) {
           case this.keys.W_KEY: //Jump
             if(this.posY >= this.posY0) {
               this.posY -= this.vy;
-              this.vy -= 10;
+              this.vy -= 15;
             }
             break;
-            // case this.keys.S_KEY: //Crawl
-            // if(this.posY >= this.posY0) {
-            //   this.posY -= this.vy;
-            //   this.vy -= 10;
-            // }
+            case this.keys.S_KEY: //Crawl
+             if (this.state =false) {
+                 this.height = this.height/2;
+                this.state = true
+            }
+             
+             
+            
+             break; 
+             
             // break;
             // case this.keys.D_KEY: //Tackle
             // if(this.posY >= this.posY0) {
@@ -80,6 +86,27 @@ class Player {
             this.shoot() */
         }
       })
+      
+       document.addEventListener('keyup', (e) => {
+        switch(e.keyCode) {
+          
+             case this.keys.S_KEY: //Crawl
+             if (this.state = true){
+             this.height = this.height*2
+             }else 
+             break;
+             
+            // break;
+            // case this.keys.D_KEY: //Tackle
+            // if(this.posY >= this.posY0) {
+            //   this.posY -= this.vy;
+            //   this.vy -= 10;
+            // }
+            // break;
+           /* case this.keys.SPACE:
+            this.shoot()  */
+        }
+      }) 
     }
   
     /* shoot() {
