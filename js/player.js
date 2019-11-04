@@ -68,7 +68,7 @@ class Player {
             this.vy -= 15;
           }
           break;
-        case this.keys.S_KEY: //Crawl
+        case this.keys.S_KEY: //Crouch
 
           if (this.size === this.newSize ) {
             this.height = this.height / 2;
@@ -94,7 +94,7 @@ class Player {
     document.addEventListener('keyup', (e) => {
       switch (e.keyCode) {
 
-        case this.keys.S_KEY: //Crawl
+        case this.keys.S_KEY: //Crouch Up
           this.height = this.height * 2
           this.posY = this.gameHeight * 0.98 - this.height
           this.posY0 = this.gameHeight * 0.98 - this.height

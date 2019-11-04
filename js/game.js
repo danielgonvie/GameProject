@@ -37,6 +37,7 @@ const Game = {
            // if (this.framesCounter % 100 === 0) this.score++;
             if (this.isCollision()) this.gameOver() 
             if (this.framesCounter > 1000) this.framesCounter = 0;
+            
         }, 1000 / this.fps)
     },
 
@@ -65,7 +66,8 @@ const Game = {
     },
 
      generateObstacles: function () {
-        this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/green-square.png', this.width, this.height))
+       // this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/green-square.png',  this.width, this.height,this.width,this.height * 0.98 - this.height * 0.10 ))
+        this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/yellow-square.png', this.width, this.height,this.width,this.height * 0.98 - this.height * 0.25 ))
     }, 
 
      gameOver: function () {

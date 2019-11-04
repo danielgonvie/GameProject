@@ -1,5 +1,5 @@
 class Obstacle {
-    constructor(ctx, width, height, image, gameWidth, gameHeight) {
+    constructor(ctx, width, height, image, gameWidth, gameHeight,posX,posY) {
       this.ctx = ctx;
       this.width = width;
       this.height = height;
@@ -7,8 +7,9 @@ class Obstacle {
       this.image = new Image();
       this.image.src = image;
       
-      this.posX = gameWidth;
-      this.posY = gameHeight * 0.98 - this.height;
+      this.posX = posX 
+      this.posY = posY
+     
   
       this.vx = 10;
     }
