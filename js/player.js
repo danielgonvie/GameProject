@@ -8,9 +8,9 @@ class Player {
     this.image.src = image;
 
     this.posX = 50;
-    this.posY = gameHeight * 0.98 - this.height;
+    this.posY = gameHeight * 0.95 - this.height;
     this.posX0 = 50;
-    this.posY0 = gameHeight * 0.98 - this.height;
+    this.posY0 = gameHeight * 0.95 - this.height;
     this.vx = 8;
     this.vy = 1;
     this.gravity = 0.8;
@@ -84,8 +84,8 @@ class Player {
 
           if (this.size === this.newSize ) {
             this.height = this.height / 2;
-            this.posY = this.gameHeight * 0.98 - this.height;
-            this.posY0 = this.gameHeight * 0.98 - this.height;
+            this.posY = this.gameHeight * 0.95 - this.height;
+            this.posY0 = this.gameHeight * 0.95 - this.height;
             this.newSize = 0;
           }
           break;
@@ -109,8 +109,8 @@ class Player {
 
         case this.keys.S_KEY: //Crouch Up
           this.height = this.height * 2
-          this.posY = this.gameHeight * 0.98 - this.height
-          this.posY0 = this.gameHeight * 0.98 - this.height
+          this.posY = this.gameHeight * 0.95 - this.height
+          this.posY0 = this.gameHeight * 0.95 - this.height
           this.newSize = this.height / 2
           break;
 

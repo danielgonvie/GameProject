@@ -5,7 +5,7 @@ class Background {
       this.height = height;
   
       this.image = new Image();
-      this.image.src = 'imgs/city-pixel-art_144233.jpg';
+      this.image.src = 'imgs/projectBackground.png';
   
       this.posX = 0;
       this.posY = 0;
