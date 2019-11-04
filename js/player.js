@@ -1,5 +1,5 @@
 class Player {
-  constructor(ctx, width, height, image, gameWidth, gameHeight, keys) {
+  constructor(ctx, width, height, image, gameWidth, gameHeight, keys, fury) {
     this.ctx = ctx;
     this.width = width;
     this.height = height;
@@ -17,6 +17,7 @@ class Player {
     this.backForce = 0.8;
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
+    this.fury = fury; // Player is tackling
 
     this.frames = 3;
     this.framesIndex = 0;
@@ -90,10 +91,13 @@ class Player {
           break;
 
           case this.keys.D_KEY: //Tackle
-          if (this.posX <= this.posX0 + 5) {
-            this.posX += this.vx;
+          if (this.fury === false && this.posX <= this.posX0 +5) {
             this.vx += 15;
-          }
+            this.posX += this.vx;
+            
+            this.fury = true;
+            console.log(this.fury)
+          } 
           break;
           
         }
@@ -110,6 +114,12 @@ class Player {
           this.newSize = this.height / 2
           break;
 
+          case this.keys.D_KEY:
+             
+            this.fury =false;
+            console.log(this.fury)
+              
+              break;
 
 
 

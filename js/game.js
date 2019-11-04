@@ -43,7 +43,7 @@ const Game = {
 
     reset: function () {
         this.background = new Background(this.ctx, this.width, this.height);
-        this.player = new Player(this.ctx, this.width * 0.08, this.height * 0.20, 'imgs/black-square.png', this.width, this.height, this.playerKeys);
+        this.player = new Player(this.ctx, this.width * 0.08, this.height * 0.20, 'imgs/black-square.png', this.width, this.height, this.playerKeys, false);
         this.obstacles = [];
         //ScoreBoard.init(this.ctx, this.score)
     },
