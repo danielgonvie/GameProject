@@ -11,7 +11,9 @@ class Player {
     this.posY = gameHeight * 0.98 - this.height;
     this.posY0 = gameHeight * 0.98 - this.height;
     this.vy = 1;
+    this.vx = 4;
     this.gravity = 0.8;
+    this.backForce = 0.8;
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
 
@@ -76,20 +78,15 @@ class Player {
             this.posY0 = this.gameHeight * 0.98 - this.height;
             this.newSize = 0;
           }
-
           break;
 
-        // break;
-        // case this.keys.D_KEY: //Tackle
-        // if(this.posY >= this.posY0) {
-        //   this.posY -= this.vy;
-        //   this.vy -= 10;
-        // }
-        // break;
-        /* case this.keys.SPACE:
-          this.shoot() */
-      }
-    })
+          case this.keys.D_KEY: //Tackle
+            this.posX = this.posX += this.vx
+            this.vx -= this.backForce
+          break;
+        }
+      })
+  
 
     document.addEventListener('keyup', (e) => {
       switch (e.keyCode) {

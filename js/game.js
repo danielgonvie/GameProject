@@ -65,10 +65,21 @@ const Game = {
         this.obstacles.forEach(obstacle => obstacle.move())
     },
 
-     generateObstacles: function () {
-       // this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/green-square.png',  this.width, this.height,this.width,this.height * 0.98 - this.height * 0.10 ))
-        this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/yellow-square.png', this.width, this.height,this.width,this.height * 0.98 - this.height * 0.25 ))
+     generateObstacles: function () { //fake
+        
+        this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.30, 'imgs/yellow-square.png', this.width, this.height,this.width,this.height * 0.98 - this.height * 0.30, "breakable" ))
+        
     }, 
+   
+   /* generateObstacles: function () { //real
+        let randomFactor = 0
+        randomFactor = Math.floor(Math.random() * 4) + 1  
+       if (randomFactor == 1 || randomFactor == 2){
+       this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/green-square.png',  this.width, this.height,this.width,this.height * 0.98 - this.height * 0.10 ))
+       } else{
+       this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/yellow-square.png', this.width, this.height,this.width,this.height * 0.98 - this.height * 0.25 ))
+       console.log(this.obstacles)}
+   }, */
 
      gameOver: function () {
         clearInterval(this.interval)
