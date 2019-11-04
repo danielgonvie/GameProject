@@ -34,7 +34,11 @@ const Game = {
 
              this.clearObstacles()
             if (this.framesCounter % 70 === 0) this.generateObstacles()
-           // if (this.framesCounter % 100 === 0) this.score++;
+            if (this.framesCounter % 20 === 0) this.score++;
+
+
+           
+           if (this.isCollision() && this.isBreakable()) this.obstacles.shift() 
             if (this.isCollision()) this.gameOver() 
             if (this.framesCounter > 1000) this.framesCounter = 0;
             
@@ -45,7 +49,7 @@ const Game = {
         this.background = new Background(this.ctx, this.width, this.height);
         this.player = new Player(this.ctx, this.width * 0.08, this.height * 0.20, 'imgs/black-square.png', this.width, this.height, this.playerKeys, false);
         this.obstacles = [];
-        //ScoreBoard.init(this.ctx, this.score)
+        ScoreBoard.init(this.ctx, this.score)
     },
 
     clear: function () {
@@ -56,7 +60,7 @@ const Game = {
         this.background.draw();
         this.player.draw(this.framesCounter);
         this.obstacles.forEach(obstacle => obstacle.draw())
-        //ScoreBoard.draw(this.score)
+        ScoreBoard.draw(this.score)
     },
 
     moveAll: function () {
@@ -65,21 +69,24 @@ const Game = {
         this.obstacles.forEach(obstacle => obstacle.move())
     },
 
-     generateObstacles: function () { //fake
+    /*  generateObstacles: function () { //fake
         
         this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.30, 'imgs/yellow-square.png', this.width, this.height,this.width,this.height * 0.98 - this.height * 0.30, "breakable" ))
         
-    }, 
+    },  */
    
-   /* generateObstacles: function () { //real
+    generateObstacles: function () { //real
         let randomFactor = 0
         randomFactor = Math.floor(Math.random() * 4) + 1  
        if (randomFactor == 1 || randomFactor == 2){
        this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/green-square.png',  this.width, this.height,this.width,this.height * 0.98 - this.height * 0.10 ))
-       } else{
+       } else if (randomFactor == 3){
        this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/yellow-square.png', this.width, this.height,this.width,this.height * 0.98 - this.height * 0.25 ))
-       console.log(this.obstacles)}
-   }, */
+       console.log(this.obstacles)} 
+       else {
+        this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.30, 'imgs/red-square.png', this.width, this.height,this.width,this.height * 0.98 - this.height * 0.30, "breakable" ))
+       }
+   }, 
 
      gameOver: function () {
         clearInterval(this.interval)
@@ -88,8 +95,18 @@ const Game = {
      isCollision: function () {
         // colisiones genéricas
         // (p.x + p.w > o.x && o.x + o.w > p.x && p.y + p.h > o.y && o.y + o.h > p.y )
-        return this.obstacles.some(obs => (this.player.posX + this.player.width > obs.posX && obs.posX + obs.width > this.player.posX && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY))
+        let obstacleHitted = this.obstacles.some(obs => (this.player.posX + this.player.width > obs.posX && obs.posX + obs.width > this.player.posX && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY))
+        return obstacleHitted
+        
     }, 
+
+        isBreakable: function () {
+            if (this.obstacles.some(obs => (this.player.posX + this.player.width > obs.posX && obs.posX + obs.width > this.player.posX && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY)) && this.player.fury === true && this.obstacles[0].brk === "breakable"){
+                console.log("Fury");
+                return true;
+            }
+           
+        },
 
      clearObstacles: function () {
         this.obstacles = this.obstacles.filter(obstacle => (obstacle.posX >= 0))
