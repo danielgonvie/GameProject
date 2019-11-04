@@ -9,9 +9,10 @@ class Player {
 
     this.posX = 50;
     this.posY = gameHeight * 0.98 - this.height;
+    this.posX0 = 50;
     this.posY0 = gameHeight * 0.98 - this.height;
+    this.vx = 8;
     this.vy = 1;
-    this.vx = 4;
     this.gravity = 0.8;
     this.backForce = 0.8;
     this.gameWidth = gameWidth;
@@ -50,6 +51,14 @@ class Player {
       this.vy = 1;
       this.posY = this.posY0;
     }
+
+    if (this.posX >= this.posX0){
+      this.posX = this.posX += this.vx
+      this.vx -= this.backForce
+    } else {
+      this.vx = 0;
+      this.posX = this.posX0;
+    }
     /* this.bullets.forEach(bullet => bullet.move()) */
   }
 
@@ -81,9 +90,12 @@ class Player {
           break;
 
           case this.keys.D_KEY: //Tackle
-            this.posX = this.posX += this.vx
-            this.vx -= this.backForce
+          if (this.posX <= this.posX0 + 5) {
+            this.posX += this.vx;
+            this.vx += 15;
+          }
           break;
+          
         }
       })
   
