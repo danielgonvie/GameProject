@@ -9,9 +9,20 @@ canvas{
     position: absolute;
 }
 #reset {
-    position: relative;
-    right: 1vw;
-    top: 2vh;
+    position: absolute; 
+    top:2vh; 
+    right:10px;
+    
+}
+#pause {
+    position: absolute; 
+    top:2vh; 
+    right:90px;
+}
+#resume {
+    position: absolute; 
+    top:2vh; 
+    right:170px;
 }
 
 a {

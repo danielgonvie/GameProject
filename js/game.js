@@ -11,6 +11,8 @@ const Game = {
         D_KEY: 68,
     },
     score: 0,
+    bestScore: 10,
+    
 
     init: function () {
         this.canvas = document.getElementById('canvas');
@@ -20,6 +22,7 @@ const Game = {
         this.canvas.width = this.width;
         this.canvas.height = this.height;
         this.score = 0;
+        
         this.start();
     },
 
@@ -29,6 +32,7 @@ const Game = {
             this.framesCounter++;
 
             this.clear();
+            
             this.drawAll();
             this.moveAll();
 
@@ -49,7 +53,12 @@ const Game = {
         this.background = new Background(this.ctx, this.width, this.height);
         this.player = new Player(this.ctx, this.width * 0.08, this.height * 0.20, 'imgs/black-square.png', this.width, this.height, this.playerKeys, false);
         this.obstacles = [];
+        this.isPaused = false;
+        this.isResume = true;
+        
         ScoreBoard.init(this.ctx, this.score)
+        BestScoreBoard.init(this.ctx,this.bestScore)
+        
     },
 
     clear: function () {
@@ -61,6 +70,7 @@ const Game = {
         this.player.draw(this.framesCounter);
         this.obstacles.forEach(obstacle => obstacle.draw())
         ScoreBoard.draw(this.score)
+        BestScoreBoard.draw(this.bestScore)
     },
 
     moveAll: function () {
@@ -78,18 +88,23 @@ const Game = {
     generateObstacles: function () { //real
         let randomFactor = 0
         randomFactor = Math.floor(Math.random() * 4) + 1  
-       if (randomFactor == 1 || randomFactor == 2){
+       if (randomFactor == 1){
        this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/green-square.png',  this.width, this.height,this.width,this.height * 0.95 - this.height * 0.10 ))
-       } else if (randomFactor == 3){
+       } else if (randomFactor == 2){
        this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/yellow-square.png', this.width, this.height,this.width,this.height * 0.95 - this.height * 0.25 ))
-       console.log(this.obstacles)} 
-       else {
+       } 
+       else if (randomFactor == 3){
         this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.30, 'imgs/red-square.png', this.width, this.height,this.width,this.height * 0.95 - this.height * 0.30, "breakable" ))
        }
+       else {this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/green-square.png',  this.width, this.height,this.width,this.height * 0.20 - this.height * 0.10, "destroyable" )) }
    }, 
 
      gameOver: function () {
+        if (this.score > this.bestScore){
+            this.bestScore = this.score;
+            alert ("NEW RECORD")}
         clearInterval(this.interval)
+        
     }, 
 
      isCollision: function () {
@@ -102,7 +117,7 @@ const Game = {
 
         isBreakable: function () {
             if (this.obstacles.some(obs => (this.player.posX + this.player.width > obs.posX && obs.posX + obs.width > this.player.posX && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY)) && this.player.fury === true && this.obstacles[0].brk === "breakable"){
-                console.log("Fury");
+                
                 return true;
             }
            
@@ -110,6 +125,42 @@ const Game = {
 
      clearObstacles: function () {
         this.obstacles = this.obstacles.filter(obstacle => (obstacle.posX >= 0))
-    } 
+    },
+
+    pauseGame: function () {
+        if (this.isPaused === false){
+          clearInterval(this.interval);
+          this.isPaused = true;
+        }
+      },
+
+      
+
+      fakeStart: function () {
+        if (this.isResume === true && this.isPaused === true){
+        this.interval = setInterval(() => {
+            this.framesCounter++;
+
+            this.clear();
+            
+            this.drawAll();
+            this.moveAll();
+
+             this.clearObstacles()
+            if (this.framesCounter % 70 === 0) this.generateObstacles()
+            if (this.framesCounter % 20 === 0) this.score++;
+
+
+           
+           if (this.isCollision() && this.isBreakable()) this.obstacles.shift() 
+            if (this.isCollision()) this.gameOver() 
+            if (this.framesCounter > 1000) this.framesCounter = 0;
+            
+        }, 1000 / this.fps)
+        this.isResume = true;
+        this.isPaused = false;
+    }
+}
+,
 
 }
