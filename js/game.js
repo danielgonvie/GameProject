@@ -38,6 +38,7 @@ const Game = {
 
              this.clearObstacles()
             if (this.framesCounter % 70 === 0) this.generateObstacles()
+            if (this.framesCounter % 150 === 0) this.generateObstacles2()
             if (this.framesCounter % 20 === 0) this.score++;
 
 
@@ -53,6 +54,7 @@ const Game = {
         this.background = new Background(this.ctx, this.width, this.height);
         this.player = new Player(this.ctx, this.width * 0.08, this.height * 0.20, 'imgs/black-square.png', this.width, this.height, this.playerKeys, false);
         this.obstacles = [];
+        this.obstacles2 = []
         this.isPaused = false;
         this.isResume = true;
         
@@ -69,6 +71,7 @@ const Game = {
         this.background.draw();
         this.player.draw(this.framesCounter);
         this.obstacles.forEach(obstacle => obstacle.draw())
+        this.obstacles2.forEach(obstacle => obstacle.draw())
         ScoreBoard.draw(this.score)
         BestScoreBoard.draw(this.bestScore)
     },
@@ -77,6 +80,7 @@ const Game = {
         this.background.move()
         this.player.move()
         this.obstacles.forEach(obstacle => obstacle.move())
+        this.obstacles2.forEach(obstacle => obstacle.move())
     },
 
     /*  generateObstacles: function () { //fake
@@ -87,17 +91,21 @@ const Game = {
    
     generateObstacles: function () { //real
         let randomFactor = 0
-        randomFactor = Math.floor(Math.random() * 4) + 1  
+        randomFactor = Math.floor(Math.random() * 3) + 1  
        if (randomFactor == 1){
-       this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/green-square.png',  this.width, this.height,this.width,this.height * 0.95 - this.height * 0.10 ))
+       this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/green-square.png',  this.width, this.height,this.width,this.height * 0.95 - this.height * 0.10,"unstoppable", 10 ))
        } else if (randomFactor == 2){
-       this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/yellow-square.png', this.width, this.height,this.width,this.height * 0.95 - this.height * 0.25 ))
+       this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/yellow-square.png', this.width, this.height,this.width,this.height * 0.95 - this.height * 0.25,"unstoppable", 10 ))
        } 
-       else if (randomFactor == 3){
-        this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.30, 'imgs/red-square.png', this.width, this.height,this.width,this.height * 0.95 - this.height * 0.30, "breakable" ))
+       else {
+        this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.30, 'imgs/red-square.png', this.width, this.height,this.width,this.height * 0.95 - this.height * 0.30, "breakable",10 ))
        }
-       else {this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/green-square.png',  this.width, this.height,this.width,this.height * 0.20 - this.height * 0.10, "destroyable" )) }
+      
    }, 
+
+   generateObstacles2: function(){
+    this.obstacles2.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/green-square.png',  this.width, this.height,this.width,this.height * 0.20 - this.height * 0.10, "destroyable",5 )) 
+   },
 
      gameOver: function () {
         if (this.score > this.bestScore){
@@ -125,6 +133,7 @@ const Game = {
 
      clearObstacles: function () {
         this.obstacles = this.obstacles.filter(obstacle => (obstacle.posX >= 0))
+        this.obstacles2 = this.obstacles2.filter(obstacle => (obstacle.posX >= 0))
     },
 
     pauseGame: function () {
@@ -148,6 +157,7 @@ const Game = {
 
              this.clearObstacles()
             if (this.framesCounter % 70 === 0) this.generateObstacles()
+            if (this.framesCounter % 150 === 0) this.generateObstacles2()
             if (this.framesCounter % 20 === 0) this.score++;
 
 
@@ -160,7 +170,9 @@ const Game = {
         this.isResume = true;
         this.isPaused = false;
     }
-}
-,
+    
+},  
+
+
 
 }

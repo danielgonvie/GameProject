@@ -28,6 +28,7 @@ class Player {
     this.keys = keys;
     this.bullets = [];
     this.setListeners()
+    
   }
 
   draw() {
@@ -62,6 +63,7 @@ class Player {
     }
     /* this.bullets.forEach(bullet => bullet.move()) */
   }
+  
 
   /* animate(framesCounter) {
     if(framesCounter % 10 === 0) {
@@ -99,10 +101,12 @@ class Player {
             console.log(this.fury)
           } 
           break;
-          
-        }
+         }
+
       })
-  
+      
+      
+            
 
     document.addEventListener('keyup', (e) => {
       switch (e.keyCode) {
