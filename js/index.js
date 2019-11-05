@@ -1,3 +1,4 @@
-window.onload = function() {
+ window.onload = function() {
     Game.init()
-  }
+  } 
+
