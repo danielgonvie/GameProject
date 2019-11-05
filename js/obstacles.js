@@ -1,5 +1,5 @@
 class Obstacle {
-    constructor(ctx, width, height, image, gameWidth, gameHeight,posX,posY, brk, vx) {
+    constructor(ctx, width, height, image, gameWidth, gameHeight,posX,posY, brk, vx, vy) {
       this.ctx = ctx;
       this.width = width;
       this.height = height;
@@ -13,6 +13,7 @@ class Obstacle {
      
   
       this.vx = vx;
+      this.vy = vy;
     }
   
     draw() {
@@ -27,5 +28,6 @@ class Obstacle {
   
     move() {
       this.posX -= this.vx;
+      this.posY += this.vy;
     }
   }

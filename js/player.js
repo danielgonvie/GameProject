@@ -1,5 +1,5 @@
 class Player {
-  constructor(ctx, width, height, image, gameWidth, gameHeight, keys, fury) {
+  constructor(ctx, width, height, image, gameWidth, gameHeight, keys, fury, unstoppable) {
     this.ctx = ctx;
     this.width = width;
     this.height = height;
@@ -18,6 +18,7 @@ class Player {
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
     this.fury = fury; // Player is tackling
+    this.unstoppable = unstoppable;
 
     this.frames = 3;
     this.framesIndex = 0;
@@ -63,6 +64,10 @@ class Player {
     }
     /* this.bullets.forEach(bullet => bullet.move()) */
   }
+
+  unstoppable(){
+    this.unstoppable = true;
+  }
   
 
   /* animate(framesCounter) {
@@ -101,6 +106,17 @@ class Player {
             console.log(this.fury)
           } 
           break;
+
+          case this.keys.A_KEY: //UNSTOPABLE
+          if (this.unstoppable === false) {
+            
+            this.unstoppable = true;
+            console.log(this.unstoppable)
+          } 
+          break;
+
+
+
          }
 
       })
@@ -124,7 +140,13 @@ class Player {
             console.log(this.fury)
               
               break;
-
+              case this.keys.A_KEY: //UNSTOPABLE
+              if (this.unstoppable === true) {
+                
+                this.unstoppable = false;
+                console.log(this.unstoppable)
+              } 
+              break;
 
 
       }
