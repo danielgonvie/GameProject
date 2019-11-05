@@ -5,13 +5,13 @@ html, body{
 body {
     overflow: hidden;
 }
-a.button {
-    -webkit-appearance: button;
-    -moz-appearance: button;
-    appearance: button;
-
-    text-decoration: none;
-    color: initial;
+canvas{
+    position: absolute;
+}
+#reset {
+    position: relative;
+    right: 1vw;
+    top: 2vh;
 }
 
 a {
@@ -22,8 +22,8 @@ a {
 
 a img {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    right: 50%;
-    bottom: 50%;
+    top: 20%;
+    left: 40%;
+    
+    
 }

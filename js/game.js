@@ -19,7 +19,7 @@ const Game = {
         this.height = window.innerHeight;
         this.canvas.width = this.width;
         this.canvas.height = this.height;
-
+        this.score = 0;
         this.start();
     },
 
