@@ -13,7 +13,7 @@ const Game = {
     },
     score: 0,
     bestScore: 10,
-    
+
 
     init: function () {
         this.canvas = document.getElementById('canvas');
@@ -23,7 +23,7 @@ const Game = {
         this.canvas.width = this.width;
         this.canvas.height = this.height;
         this.score = 0;
-        
+
         this.start();
     },
 
@@ -33,25 +33,28 @@ const Game = {
             this.framesCounter++;
 
             this.clear();
-            
+
             this.drawAll();
             this.moveAll();
 
-             this.clearObstacles()
+            this.clearObstacles()
             if (this.framesCounter % 70 === 0) this.generateObstacles()
             if (this.framesCounter % 150 === 0) this.generateObstacles2()
             if (this.framesCounter % 20 === 0) this.score++;
-            if ( this.isOver()) this.generateBomb()
+            if (this.isOver()) this.generateBomb()
 
-           
-           if (this.isCollision() && this.isBreakable()) this.obstacles.shift() 
-           if (this.isCollisionBulletBomb()) {
-               this.bombs.shift();
+
+            if (this.isCollision() && this.isBreakable()) this.obstacles.shift()
+            if (this.player.bullets.length > 0){
+            if (this.isCollisionBulletBomb()) {
+                this.bombs.shift();
                 console.log(this.bombs)
-           }    
-            if (this.isCollision()) this.gameOver() 
+            }
+        }
+            if (this.isCollision()) this.gameOver()
+
             if (this.framesCounter > 1000) this.framesCounter = 0;
-            
+
         }, 1000 / this.fps)
     },
 
@@ -60,13 +63,14 @@ const Game = {
         this.player = new Player(this.ctx, this.width * 0.08, this.height * 0.20, 'imgs/black-square.png', this.width, this.height, this.playerKeys, false, false);
         this.obstacles = [];
         this.obstacles2 = [];
-        this.bombs =[];
+        this.bombs = [];
+
         this.isPaused = false;
         this.isResume = true;
-        
+
         ScoreBoard.init(this.ctx, this.score)
-        BestScoreBoard.init(this.ctx,this.bestScore)
-        
+        BestScoreBoard.init(this.ctx, this.bestScore)
+
     },
 
     clear: function () {
@@ -96,116 +100,116 @@ const Game = {
         this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.30, 'imgs/yellow-square.png', this.width, this.height,this.width,this.height * 0.98 - this.height * 0.30, "breakable" ))
         
     },  */
-   
+
     generateObstacles: function () { //real
         let randomFactor = 0
-        randomFactor = Math.floor(Math.random() * 3) + 1  
-       if (randomFactor == 1){
-       this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/green-square.png',  this.width, this.height,this.width,this.height * 0.95 - this.height * 0.10,"unstoppable", 10, 0 ))
-       } else if (randomFactor == 2){
-       this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/yellow-square.png', this.width, this.height,this.width,this.height * 0.95 - this.height * 0.25,"unstoppable", 10, 0 ))
-       } 
-       else {
-        this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.30, 'imgs/red-square.png', this.width, this.height,this.width,this.height * 0.95 - this.height * 0.30, "breakable",10, 0 ))
-       }
-      
-   }, 
+        randomFactor = Math.floor(Math.random() * 3) + 1
+        if (randomFactor == 1) {
+            this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/green-square.png', this.width, this.height, this.width, this.height * 0.95 - this.height * 0.10, "unstoppable", 10, 0))
+        } else if (randomFactor == 2) {
+            this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/yellow-square.png', this.width, this.height, this.width, this.height * 0.95 - this.height * 0.25, "unstoppable", 10, 0))
+        }
+        else {
+            this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.30, 'imgs/red-square.png', this.width, this.height, this.width, this.height * 0.95 - this.height * 0.30, "breakable", 10, 0))
+        }
 
-   generateObstacles2: function(){
-    this.obstacles2.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/green-square.png',  this.width, this.height,this.width,this.height * 0.20 - this.height * 0.10, "unstoppable",5, 0 )) 
-   },
+    },
 
-   generateBomb: function(){
-       
-       if (this.bombs.length < 1){
-    this.bombs.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/yellow-square.png',  this.width, this.height,this.width * 0.05,this.height * 0.30 - this.height * 0.10, "destroyable",0, 10 ))
-       }   
-},
+    generateObstacles2: function () {
+        this.obstacles2.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/green-square.png', this.width, this.height, this.width, this.height * 0.20 - this.height * 0.10, "unstoppable", 5, 0))
+    },
 
-     gameOver: function () {
-        if (this.score > this.bestScore){
+    generateBomb: function () {
+
+        if (this.bombs.length < 2) {
+            this.bombs.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/yellow-square.png', this.width, this.height, this.width * 0.07, this.height * 0.30 - this.height * 0.10, "destroyable", 0, 5))
+        }
+    },
+
+    gameOver: function () {
+        if (this.score > this.bestScore) {
             this.bestScore = this.score;
-            alert ("NEW RECORD")}
+            alert("NEW RECORD")
+        }
         clearInterval(this.interval)
-        
-    }, 
 
-     isCollision: function () {
+    },
+
+    isCollision: function () {
         // colisiones genéricas
         // (p.x + p.w > o.x && o.x + o.w > p.x && p.y + p.h > o.y && o.y + o.h > p.y )
-        let obstacleHitted = this.obstacles.some(obs => (this.player.posX + this.player.width > obs.posX && obs.posX + obs.width > this.player.posX && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY))
-        return obstacleHitted
-        
-    }, 
+        if (this.obstacles.some(obs => (this.player.posX + this.player.width > obs.posX && obs.posX + obs.width > this.player.posX && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY)) || this.bombs.some(bomb => (this.player.posX + this.player.width > bomb.posX && bomb.posX + bomb.width > this.player.posX && this.player.posY + this.player.height > bomb.posY && bomb.posY + bomb.height > this.player.posY))) {
+            return true
+        }
+
+    },
     isCollisionBulletBomb: function () {
         // colisiones genéricas
         // (p.x + p.w > o.x && o.x + o.w > p.x && p.y + p.h > o.y && o.y + o.h > p.y )
-        if( this.bombs.some(bomb => (this.player.bullets[0].posX + this.player.bullets[0].width > bomb.posX && bomb.posX + bomb.width > this.player.bullets[0].posX && this.player.bullets[0].posY + this.player.bullets[0].height > bomb.posY && bomb.posY + bomb.height > this.player.bullets[0].posY))
-        ){return true}
+        if (this.bombs.some(bomb => (this.player.bullets[0].posX + this.player.bullets[0].width > bomb.posX && bomb.posX + bomb.width > this.player.bullets[0].posX && this.player.bullets[0].posY + this.player.bullets[0].height > bomb.posY && bomb.posY + bomb.height > this.player.bullets[0].posY))
+        ) { return true }
+        else if (this.bombs.some(bomb => (this.player.bullets[1].posX + this.player.bullets[1].width > bomb.posX && bomb.posX + bomb.width > this.player.bullets[1].posX && this.player.bullets[1].posY + this.player.bullets[1].height > bomb.posY && bomb.posY + bomb.height > this.player.bullets[1].posY))) { return true }
+        else if (this.bombs.some(bomb => (this.player.bullets[2].posX + this.player.bullets[2].width > bomb.posX && bomb.posX + bomb.width > this.player.bullets[2].posX && this.player.bullets[2].posY + this.player.bullets[2].height > bomb.posY && bomb.posY + bomb.height > this.player.bullets[2].posY))) { return true }
+        else { return false }
     },
 
-        isBreakable: function () {
-            if (this.obstacles.some(obs => (this.player.posX + this.player.width > obs.posX && obs.posX + obs.width > this.player.posX && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY)) && this.player.fury === true && this.obstacles[0].brk === "breakable"){
-                
-                return true;
-            }
-        },
+    isBreakable: function () {
+        if (this.obstacles.some(obs => (this.player.posX + this.player.width > obs.posX && obs.posX + obs.width > this.player.posX && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY)) && this.player.fury === true && this.obstacles[0].brk === "breakable") {
 
-        isDestroyable: function () {
-            if (this.bombs.some(bomb => (this.player.posX + this.player.width > bomb.posX && bomb.posX + bomb.width > this.player.posX && this.player.posY + this.player.height > bomb.posY && bomb.posY + bomb.height > this.player.posY)) && this.bombs[0].brk === "destroyable"){
-                
-                return true;
-            }
-        },
+            return true;
+        }
+    },
 
-        isOver: function (){
-            if (this.obstacles2.some(obs => (obs.posX <= this.player.posX0 + 2))){
-                
-                return true;
-            }
-        },
-     clearObstacles: function () {
+
+
+    isOver: function () {
+        if (this.obstacles2.some(obs => (obs.posX <= this.player.posX0 + 2))) {
+
+            return true;
+        }
+    },
+    clearObstacles: function () {
         this.obstacles = this.obstacles.filter(obstacle => (obstacle.posX >= -5))
         this.obstacles2 = this.obstacles2.filter(obstacle => (obstacle.posX >= -5))
-        this.bombs = this.bombs.filter(bomb => bomb.posY < this.height +20)
+        this.bombs = this.bombs.filter(bomb => bomb.posY < this.height + 20)
     },
 
     pauseGame: function () {
-        if (this.isPaused === false){
-          clearInterval(this.interval);
-          this.isPaused = true;
+        if (this.isPaused === false) {
+            clearInterval(this.interval);
+            this.isPaused = true;
         }
-      },
-
-      
-
-      fakeStart: function () {
-        if (this.isResume === true && this.isPaused === true){
-        this.interval = setInterval(() => {
-            this.framesCounter++;
-
-            this.clear();
-            
-            this.drawAll();
-            this.moveAll();
-
-             this.clearObstacles()
-            if (this.framesCounter % 70 === 0) this.generateObstacles()
-            if (this.framesCounter % 150 === 0) this.generateObstacles2()
-            if (this.framesCounter % 20 === 0) this.score++;
+    },
 
 
-           
-           if (this.isCollision() && this.isBreakable()) this.obstacles.shift() 
-            if (this.isCollision()) this.gameOver() 
-            if (this.framesCounter > 1000) this.framesCounter = 0;
-            
-        }, 1000 / this.fps)
-        this.isResume = true;
-        this.isPaused = false;
-    }
-    
-},  
+
+    fakeStart: function () {
+        if (this.isResume === true && this.isPaused === true) {
+            this.interval = setInterval(() => {
+                this.framesCounter++;
+
+                this.clear();
+
+                this.drawAll();
+                this.moveAll();
+
+                this.clearObstacles()
+                if (this.framesCounter % 70 === 0) this.generateObstacles()
+                if (this.framesCounter % 150 === 0) this.generateObstacles2()
+                if (this.framesCounter % 20 === 0) this.score++;
+
+
+
+                if (this.isCollision() && this.isBreakable()) this.obstacles.shift()
+                if (this.isCollision()) this.gameOver()
+                if (this.framesCounter > 1000) this.framesCounter = 0;
+
+            }, 1000 / this.fps)
+            this.isResume = true;
+            this.isPaused = false;
+        }
+
+    },
 
 
 

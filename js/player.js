@@ -29,7 +29,7 @@ class Player {
     this.keys = keys;
     this.bullets = [];
     this.setListeners()
-    
+
   }
 
   draw() {
@@ -40,7 +40,7 @@ class Player {
       this.width,
       this.height
     )
-    
+
     this.clearBullets()
     this.bullets.forEach(bullet => bullet.draw())
     //this.animate(framesCounter) 
@@ -55,21 +55,21 @@ class Player {
       this.posY = this.posY0;
     }
 
-    if (this.posX >= this.posX0){
+    if (this.posX >= this.posX0) {
       this.posX = this.posX += this.vx
       this.vx -= this.backForce
     } else {
       this.vx = 0;
       this.posX = this.posX0;
     }
-     this.bullets.forEach(bullet => bullet.move()) 
+    this.bullets.forEach(bullet => bullet.move())
   }
 
-  unstoppable(){
+  unstoppable() {
     this.unstoppable = true;
   }
-  
-  clearBullets(){
+
+  clearBullets() {
     this.bullets = this.bullets.filter(bullet => (bullet.posY >= 0))
   }
   /* animate(framesCounter) {
@@ -91,7 +91,7 @@ class Player {
           break;
         case this.keys.S_KEY: //Crouch
 
-          if (this.size === this.newSize ) {
+          if (this.size === this.newSize) {
             this.height = this.height / 2;
             this.posY = this.gameHeight * 0.95 - this.height;
             this.posY0 = this.gameHeight * 0.95 - this.height;
@@ -99,30 +99,30 @@ class Player {
           }
           break;
 
-          case this.keys.D_KEY: //Tackle
-          if (this.fury === false && this.posX <= this.posX0 +5) {
+        case this.keys.D_KEY: //Tackle
+          if (this.fury === false && this.posX <= this.posX0 + 5) {
             this.vx += 15;
             this.posX += this.vx;
-            
+
             this.fury = true;
-            console.log(this.fury)
-          } 
+
+          }
           break;
 
-          case this.keys.A_KEY: //fire up
+        case this.keys.A_KEY: //fire up
           if (this.bullets.length < 3) {
-            this.bullets.push(new Bullet(this.ctx, 20,20, "imgs/red-square.png", this.posX,  this.posY, "bullet", 0, 10 ));
-          } 
+            this.bullets.push(new Bullet(this.ctx, 20, 20, "imgs/red-square.png", this.posX + this.width / 2, this.posY, "bullet", 0, 10));
+          }
           break;
 
 
 
-         }
+      }
 
-      })
-      
-      
-            
+    })
+
+
+
 
     document.addEventListener('keyup', (e) => {
       switch (e.keyCode) {
@@ -134,19 +134,19 @@ class Player {
           this.newSize = this.height / 2
           break;
 
-          case this.keys.D_KEY:
-             
-            this.fury =false;
-            console.log(this.fury)
-              
-              break;
-              case this.keys.A_KEY: //UNSTOPABLE
-              if (this.unstoppable === true) {
-                
-                this.unstoppable = false;
-                console.log(this.unstoppable)
-              } 
-              break;
+        case this.keys.D_KEY:
+
+          this.fury = false;
+
+
+          break;
+        case this.keys.A_KEY: //UNSTOPABLE
+          if (this.unstoppable === true) {
+
+            this.unstoppable = false;
+
+          }
+          break;
 
 
       }
