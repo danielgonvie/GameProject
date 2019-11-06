@@ -116,7 +116,7 @@ const Game = {
     },
 
     generateObstacles2: function () {
-        this.obstacles2.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/green-square.png', this.width, this.height, this.width, this.height * 0.20 - this.height * 0.10, "unstoppable", 5, 0))
+        this.obstacles2.push(new Obstacle(this.ctx, this.width * 0.06, this.height * 0.12, 'imgs/dani.png', this.width, this.height, this.width, this.height * 0.20 - this.height * 0.10, "unstoppable", 5, 0))
     },
 
     generateBomb: function () {
