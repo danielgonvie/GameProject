@@ -45,7 +45,7 @@ const Game = {
 
            
            if (this.isCollision() && this.isBreakable()) this.obstacles.shift() 
-           if (this.isCollisionBomb() && this.isDestroyable()) {
+           if (this.isCollisionBulletBomb()) {
                this.bombs.shift();
                 console.log(this.bombs)
            }    
@@ -112,7 +112,7 @@ const Game = {
    }, 
 
    generateObstacles2: function(){
-    this.obstacles2.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/green-square.png',  this.width, this.height,this.width,this.height * 0.20 - this.height * 0.10, "destroyable",5, 0 )) 
+    this.obstacles2.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/green-square.png',  this.width, this.height,this.width,this.height * 0.20 - this.height * 0.10, "unstoppable",5, 0 )) 
    },
 
    generateBomb: function(){
@@ -137,12 +137,11 @@ const Game = {
         return obstacleHitted
         
     }, 
-    isCollisionBomb: function () {
+    isCollisionBulletBomb: function () {
         // colisiones genéricas
         // (p.x + p.w > o.x && o.x + o.w > p.x && p.y + p.h > o.y && o.y + o.h > p.y )
-        let bombHitted = this.bombs.some(bomb => (this.player.posX + this.player.width > bomb.posX && bomb.posX + bomb.width > this.player.posX && this.player.posY + this.player.height > bomb.posY && bomb.posY + bomb.height > this.player.posY))
-        return bombHitted
-        
+        if( this.bombs.some(bomb => (this.player.bullets[0].posX + this.player.bullets[0].width > bomb.posX && bomb.posX + bomb.width > this.player.bullets[0].posX && this.player.bullets[0].posY + this.player.bullets[0].height > bomb.posY && bomb.posY + bomb.height > this.player.bullets[0].posY))
+        ){return true}
     },
 
         isBreakable: function () {
@@ -153,7 +152,7 @@ const Game = {
         },
 
         isDestroyable: function () {
-            if (this.bombs.some(bomb => (this.player.posX + this.player.width > bomb.posX && bomb.posX + bomb.width > this.player.posX && this.player.posY + this.player.height > bomb.posY && bomb.posY + bomb.height > this.player.posY)) && this.player.unstoppable === true && this.bombs[0].brk === "destroyable"){
+            if (this.bombs.some(bomb => (this.player.posX + this.player.width > bomb.posX && bomb.posX + bomb.width > this.player.posX && this.player.posY + this.player.height > bomb.posY && bomb.posY + bomb.height > this.player.posY)) && this.bombs[0].brk === "destroyable"){
                 
                 return true;
             }
@@ -166,8 +165,8 @@ const Game = {
             }
         },
      clearObstacles: function () {
-        this.obstacles = this.obstacles.filter(obstacle => (obstacle.posX >= 0))
-        this.obstacles2 = this.obstacles2.filter(obstacle => (obstacle.posX >= 0))
+        this.obstacles = this.obstacles.filter(obstacle => (obstacle.posX >= -5))
+        this.obstacles2 = this.obstacles2.filter(obstacle => (obstacle.posX >= -5))
         this.bombs = this.bombs.filter(bomb => bomb.posY < this.height +20)
     },
 

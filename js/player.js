@@ -40,10 +40,10 @@ class Player {
       this.width,
       this.height
     )
-    /* console.log(this.bullets.length)
+    
     this.clearBullets()
     this.bullets.forEach(bullet => bullet.draw())
-    this.animate(framesCounter) */
+    //this.animate(framesCounter) 
   }
 
   move() {
@@ -62,14 +62,16 @@ class Player {
       this.vx = 0;
       this.posX = this.posX0;
     }
-    /* this.bullets.forEach(bullet => bullet.move()) */
+     this.bullets.forEach(bullet => bullet.move()) 
   }
 
   unstoppable(){
     this.unstoppable = true;
   }
   
-
+  clearBullets(){
+    this.bullets = this.bullets.filter(bullet => (bullet.posY >= 0))
+  }
   /* animate(framesCounter) {
     if(framesCounter % 10 === 0) {
       this.framesIndex++;
@@ -107,11 +109,9 @@ class Player {
           } 
           break;
 
-          case this.keys.A_KEY: //UNSTOPABLE
-          if (this.unstoppable === false) {
-            
-            this.unstoppable = true;
-            console.log(this.unstoppable)
+          case this.keys.A_KEY: //fire up
+          if (this.bullets.length < 3) {
+            this.bullets.push(new Bullet(this.ctx, 20,20, "imgs/red-square.png", this.posX,  this.posY, "bullet", 0, 10 ));
           } 
           break;
 
