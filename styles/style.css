@@ -31,10 +31,39 @@ a {
     width:100%;
 }
 
-a img {
+#centerImage {
     position: fixed;
     top: 20%;
     left: 40%;
+    
+    
+}
+
+#instructions {
+    position: fixed;
+    top: 10%;
+    left: 10%;
+    
+    
+}
+#inst1 {
+    position: fixed;
+    top: 35%;
+    left: 5%;
+    
+    
+}
+#inst2 {
+    position: fixed;
+    top: 55%;
+    left: 5%;
+    
+    
+}
+#inst3 {
+    position: fixed;
+    top: 75%;
+    left: 5%;
     
     
 }
