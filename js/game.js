@@ -60,7 +60,7 @@ const Game = {
 
     reset: function () {
         this.background = new Background(this.ctx, this.width, this.height);
-        this.player = new Player(this.ctx, this.width * 0.08, this.height * 0.20, 'imgs/black-square.png', this.width, this.height, this.playerKeys, false, false);
+        this.player = new Player(this.ctx, this.width * 0.08, this.height * 0.20, 'imgs/run.png','imgs/empuje.png','imgs/agacharsecon.png','imgs/jump.png', this.width, this.height, this.playerKeys, false, false);
         this.obstacles = [];
         this.obstacles2 = [];
         this.bombs = [];
@@ -122,7 +122,7 @@ const Game = {
     generateBomb: function () {
 
         if (this.bombs.length < 2) {
-            this.bombs.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/yellow-square.png', this.width, this.height, this.width * 0.07, this.height * 0.30 - this.height * 0.10, "destroyable", 0, 5))
+            this.bombs.push(new Obstacle(this.ctx, this.width * 0.06, this.height * 0.10, 'imgs/filedrop.png', this.width, this.height, this.width * 0.07, this.height * 0.30 - this.height * 0.10, "destroyable", 0, 5))
         }
     },
 
@@ -189,21 +189,28 @@ const Game = {
                 this.framesCounter++;
 
                 this.clear();
-
+    
                 this.drawAll();
                 this.moveAll();
-
+    
                 this.clearObstacles()
                 if (this.framesCounter % 70 === 0) this.generateObstacles()
                 if (this.framesCounter % 150 === 0) this.generateObstacles2()
                 if (this.framesCounter % 20 === 0) this.score++;
-
-
-
+                if (this.isOver()) this.generateBomb()
+    
+    
                 if (this.isCollision() && this.isBreakable()) this.obstacles.shift()
+                if (this.player.bullets.length > 0){
+                if (this.isCollisionBulletBomb()) {
+                    this.bombs.shift();
+                    console.log(this.bombs)
+                }
+            }
                 if (this.isCollision()) this.gameOver()
+    
                 if (this.framesCounter > 1000) this.framesCounter = 0;
-
+    
             }, 1000 / this.fps)
             this.isResume = true;
             this.isPaused = false;
