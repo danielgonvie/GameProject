@@ -71,7 +71,7 @@ const Game = {
             this.player = new Player(this.ctx, this.width * 0.08, this.height * 0.20, 'imgs/run-carlos.png','imgs/empuuuuuje-carlos.png','imgs/agacharsecon-carlos.png','imgs/jump-carlos.png', this.width, this.height, this.playerKeys, false, false);
         }
         else {
-            this.player = new Player(this.ctx, this.width * 0.08, this.height * 0.20, 'imgs/run.png','imgs/empuuuuuje.png','imgs/agacharsecon.png','imgs/jump.png', this.width, this.height, this.playerKeys, false, false);
+            this.player = new Player(this.ctx, this.width * 0.08, this.height * 0.20, 'imgs/run.png','imgs/empuuuuuje-lore.png','imgs/agacharsecon-lore.png','imgs/jump-lore.png', this.width, this.height, this.playerKeys, false, false);
         }
         
         this.obstacles = [];
@@ -104,12 +104,12 @@ const Game = {
 
     drawPlayer: function(){
         if (this.randomPlayer == 1) {
-            this.facePlayer.push(new FacePlayer(this.ctx, this.width * 0.05, this.height * 0.10, 'imgs/fran.png', this.width * 0.50, this.height * 0.01))
+            this.facePlayer.push(new FacePlayer(this.ctx, this.width * 0.05, this.height * 0.10, 'imgs/sitoface.png', this.width * 0.50, this.height * 0.01))
         } else if (this.randomPlayer == 2) {
-            this.facePlayer.push(new FacePlayer(this.ctx, this.width * 0.05, this.height * 0.10, 'imgs/hector.png', this.width * 0.50, this.height * 0.01))
+            this.facePlayer.push(new FacePlayer(this.ctx, this.width * 0.05, this.height * 0.10, 'imgs/carlosface.png', this.width * 0.50, this.height * 0.01))
         }
         else {
-            this.facePlayer.push(new FacePlayer(this.ctx, this.width * 0.05, this.height * 0.10, 'imgs/dani.png', this.width * 0.50, this.height * 0.01))
+            this.facePlayer.push(new FacePlayer(this.ctx, this.width * 0.05, this.height * 0.10, 'imgs/face-lore.png', this.width * 0.50, this.height * 0.01))
         }
           
     },
