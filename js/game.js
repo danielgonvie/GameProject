@@ -72,9 +72,8 @@ const Game = {
         this.background = new Background(this.ctx, this.width, this.height);
         
         this.gameOverSound = new Audio("audio/gameover.mp3")
+        this.victorySound = new Audio("audio/victory fanfare.mp3")
         
-        
-
         this.obstacles = [];
         this.obstacles2 = [];
         this.bombs = [];
@@ -167,8 +166,10 @@ const Game = {
 
     gameOver: function () {
         if (this.score > this.bestScore) {
+            this.victorySound.play()
             this.bestScore = this.score;
-            alert("NEW RECORD")
+            this.victorySound.play()
+            setTimeout(function(){ alert("                                        NEW RECORD \n                                   CONGRATULATIONS\n                                          !!!!!!!!!!!!!!!"); }, 500);
         } else {
 
         this.gameOverSound.play()}

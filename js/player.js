@@ -13,7 +13,7 @@ class Player {
     this.imageCrouch.src = imageCrouch;
     this.imageJump = new Image();
     this.imageJump.src = imageJump;
-    
+    this.nope = new Audio("audio/Nope (Construction Worker TF2) - Gaming Sound Effect (HD)-[AudioTrimmer.com].mp3")
 
 
     this.posX = 50;
@@ -176,6 +176,7 @@ class Player {
 
         case this.keys.A_KEY: //fire up
           if (this.bullets.length < 1) {
+            this.nope.play()
             this.bullets.push(new Bullet(this.ctx, 100, 50, "imgs/NOPE.png", this.posX + this.width / 2, this.posY, "bullet", 0, 10));
           }
           break;
