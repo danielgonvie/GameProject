@@ -13,7 +13,8 @@ const Game = {
     },
     score: 0,
     bestScore: 10,
-
+    some: Math.floor( Math.random( 100 - 60 + 1) + 60),
+    some2: Math.floor( Math.random( 700 - 250 + 1) + 250) ,
 
     init: function () {
         this.canvas = document.getElementById('canvas');
@@ -38,8 +39,8 @@ const Game = {
             this.moveAll();
 
             this.clearObstacles()
-            if (this.framesCounter % 70 === 0) this.generateObstacles()
-            if (this.framesCounter % 150 === 0) this.generateObstacles2()
+            if (this.framesCounter % this.some === 0) this.generateObstacles()
+            if (this.framesCounter % this.some2 === 0) this.generateObstacles2()
             if (this.framesCounter % 20 === 0) this.score++;
             if (this.isOver()) this.generateBomb()
 
@@ -60,11 +61,11 @@ const Game = {
 
     reset: function () {
         this.background = new Background(this.ctx, this.width, this.height);
-        let randomFactor = 0
-        randomFactor = Math.floor(Math.random() * 3) + 1
-        if (randomFactor == 1) {
+        let randomPlayer = 0
+        randomPlayer = Math.floor(Math.random() * 3) + 1
+        if (randomPlayer == 1) {
             this.player = new Player(this.ctx, this.width * 0.08, this.height * 0.20, 'imgs/run.png','imgs/empuuuuuje.png','imgs/agacharsecon.png','imgs/jump.png', this.width, this.height, this.playerKeys, false, false);
-        } else if (randomFactor == 2) {
+        } else if (randomPlayer == 2) {
             this.player = new Player(this.ctx, this.width * 0.08, this.height * 0.20, 'imgs/run.png','imgs/empuuuuuje.png','imgs/agacharsecon.png','imgs/jump.png', this.width, this.height, this.playerKeys, false, false);
         }
         else {
@@ -115,9 +116,9 @@ const Game = {
         let randomFactor = 0
         randomFactor = Math.floor(Math.random() * 3) + 1
         if (randomFactor == 1) {
-            this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/green-square.png', this.width, this.height, this.width, this.height * 0.95 - this.height * 0.10, "unstoppable", 10, 0))
+            this.obstacles.push(new Obstacle(this.ctx, this.width * 0.06, this.height * 0.10, 'imgs/fran.png', this.width, this.height, this.width, this.height * 0.95 - this.height * 0.10, "unstoppable", 10, 0))
         } else if (randomFactor == 2) {
-            this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'imgs/yellow-square.png', this.width, this.height, this.width, this.height * 0.95 - this.height * 0.25, "unstoppable", 10, 0))
+            this.obstacles.push(new Obstacle(this.ctx, this.width * 0.06, this.height * 0.10, 'imgs/hector.png', this.width, this.height, this.width, this.height * 0.95 - this.height * 0.25, "unstoppable", 10, 0))
         }
         else {
             this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.30, 'imgs/red-square.png', this.width, this.height, this.width, this.height * 0.95 - this.height * 0.30, "breakable", 10, 0))
@@ -145,10 +146,14 @@ const Game = {
 
     },
 
+    
+    
+    
+
     isCollision: function () {
         // colisiones genéricas
         // (p.x + p.w > o.x && o.x + o.w > p.x && p.y + p.h > o.y && o.y + o.h > p.y )
-        if (this.obstacles.some(obs => (this.player.posX + this.player.width > obs.posX && obs.posX + obs.width > this.player.posX && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY)) || this.bombs.some(bomb => (this.player.posX + this.player.width > bomb.posX && bomb.posX + bomb.width > this.player.posX && this.player.posY + this.player.height > bomb.posY && bomb.posY + bomb.height > this.player.posY))) {
+        if (this.obstacles.some(obs => (this.player.posX + (this.player.width - (this.player.width/4)) > obs.posX && obs.posX + obs.width > this.player.posX && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY)) || this.bombs.some(bomb => (this.player.posX + this.player.width > bomb.posX && bomb.posX + bomb.width > this.player.posX && this.player.posY + this.player.height > bomb.posY && bomb.posY + bomb.height > this.player.posY))) {
             return true
         }
 
