@@ -13,7 +13,7 @@ class Player {
     this.imageCrouch.src = imageCrouch;
     this.imageJump = new Image();
     this.imageJump.src = imageJump;
-
+    
 
 
     this.posX = 50;
