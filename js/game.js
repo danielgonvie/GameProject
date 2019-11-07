@@ -18,6 +18,7 @@ const Game = {
     some2: Math.floor(Math.random(700 - 250 + 1) + 250),
     
     imageGame: new Image(),
+    gameOverSound: new Sound(),
     
 
     randomPlayer: Math.floor(Math.random() * 3) + 1,
@@ -61,7 +62,7 @@ const Game = {
                 }
             }
             if (this.isCollision()) this.gameOver()
-
+           
             if (this.framesCounter > 1000) this.framesCounter = 0;
 
         }, 1000 / this.fps)
@@ -100,6 +101,7 @@ const Game = {
         this.bombs.forEach(bomb => bomb.draw())
         ScoreBoard.draw(this.score)
         BestScoreBoard.draw(this.bestScore)
+        this.gameOverSound = "sounds/"
         this.imageGame.src = "imgs/gameoverBIEN.png"
     },
 
@@ -172,7 +174,7 @@ const Game = {
 
         
         this.ctx.drawImage(this.imageGame,this.width*0.27,this.height*0.20,700,300)
-        
+        gameOverSound.play()
         
         
         
@@ -228,6 +230,7 @@ const Game = {
         }
     },
 
+    
 
 
     fakeStart: function () {
