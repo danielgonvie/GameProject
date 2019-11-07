@@ -73,7 +73,8 @@ const Game = {
         
         this.gameOverSound = new Audio("audio/gameover.mp3")
         this.victorySound = new Audio("audio/victory fanfare.mp3")
-        
+        this.archivo = new Audio("audio/archivo.mp3")
+
         this.obstacles = [];
         this.obstacles2 = [];
         this.bombs = [];
@@ -161,6 +162,7 @@ const Game = {
 
         if (this.bombs.length < 2) {
             this.bombs.push(new Obstacle(this.ctx, this.width * 0.06, this.height * 0.10, 'imgs/filedrop.png', this.width, this.height, this.width * 0.07, this.height * 0.30 - this.height * 0.10, "destroyable", 0, 5))
+            this.archivo.play()
         }
     },
 
