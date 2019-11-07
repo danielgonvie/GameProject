@@ -100,7 +100,7 @@ const Game = {
         this.bombs.forEach(bomb => bomb.draw())
         ScoreBoard.draw(this.score)
         BestScoreBoard.draw(this.bestScore)
-        this.imageGame.src = "imgs/hector.png"
+        this.imageGame.src = "imgs/gameoverBIEN.png"
     },
 
     drawPlayer: function () {
@@ -171,7 +171,7 @@ const Game = {
         }
 
         
-        this.ctx.drawImage(this.imageGame,50,50,300,300)
+        this.ctx.drawImage(this.imageGame,this.width*0.27,this.height*0.20,700,300)
         
         
         
