@@ -18,7 +18,7 @@ const Game = {
     some2: Math.floor(Math.random(700 - 250 + 1) + 250),
     
     imageGame: new Image(),
-    gameOverSound: new Sound(),
+    
     
 
     randomPlayer: Math.floor(Math.random() * 3) + 1,
@@ -31,7 +31,7 @@ const Game = {
         this.canvas.width = this.width;
         this.canvas.height = this.height;
         this.score = 0;
-
+        
         this.start();
     },
 
@@ -46,7 +46,7 @@ const Game = {
             this.drawAll();
             
             this.moveAll();
-
+            
             this.clearObstacles()
             if (this.framesCounter % this.some === 0) this.generateObstacles()
             if (this.framesCounter % this.some2 === 0) this.generateObstacles2()
@@ -70,7 +70,8 @@ const Game = {
 
     reset: function () {
         this.background = new Background(this.ctx, this.width, this.height);
-
+        
+        this.gameOverSound = new Audio("audio/gameover.mp3")
         
         
 
@@ -101,7 +102,7 @@ const Game = {
         this.bombs.forEach(bomb => bomb.draw())
         ScoreBoard.draw(this.score)
         BestScoreBoard.draw(this.bestScore)
-        this.gameOverSound = "sounds/"
+        
         this.imageGame.src = "imgs/gameoverBIEN.png"
     },
 
@@ -172,14 +173,14 @@ const Game = {
             alert("NEW RECORD")
         }
 
-        
+        this.gameOverSound.play()
         this.ctx.drawImage(this.imageGame,this.width*0.27,this.height*0.20,700,300)
-        gameOverSound.play()
+        
         
         
         
             clearInterval(this.interval)
-       
+            
         
 
     },
