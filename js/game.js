@@ -136,11 +136,9 @@ const Game = {
         this.bombs.forEach(bomb => bomb.move())
     },
 
-    /*  generateObstacles: function () { //fake
-        
-        this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.30, 'imgs/yellow-square.png', this.width, this.height,this.width,this.height * 0.98 - this.height * 0.30, "breakable" ))
-        
-    },  */
+    randomCharacter: function () {
+        this.randomPlayer = Math.floor(Math.random() * 3) + 1;
+    },
 
     generateObstacles: function () { //real
         let randomFactor = 0
@@ -171,9 +169,10 @@ const Game = {
         if (this.score > this.bestScore) {
             this.bestScore = this.score;
             alert("NEW RECORD")
-        }
+        } else {
 
-        this.gameOverSound.play()
+        this.gameOverSound.play()}
+
         this.ctx.drawImage(this.imageGame,this.width*0.27,this.height*0.20,700,300)
         
         

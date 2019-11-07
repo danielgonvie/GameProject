@@ -13,7 +13,7 @@
  
 
     <canvas id="canvas"></canvas>
-    <button type="button" class="btn btn-primary" id="reset"  onclick="Game.gameOver(); Game.init()">RESET</button>
+    <button type="button" class="btn btn-primary" id="reset"  onclick="clearInterval(Game.interval); Game.randomCharacter(); Game.init()">RESET</button>
     <button type="button" class="btn btn-secondary" id="pause"  onclick="Game.pauseGame()">PAUSE</button>
     <button type="button" class="btn btn-success" id="resume"  onclick="Game.fakeStart()">RESUME</button>
     
