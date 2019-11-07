@@ -9,14 +9,18 @@ const Game = {
         W_KEY: 87,
         S_KEY: 83,
         D_KEY: 68,
-        A_KEY: 65
+        A_KEY: 65,
+        ENTER_KEY: 13,
     },
     score: 0,
-    bestScore: 10,
-    some: Math.floor( Math.random( 100 - 60 + 1) + 60),
-    some2: Math.floor( Math.random( 700 - 250 + 1) + 250) ,
+    bestScore: 50,
+    some: Math.floor(Math.random(100 - 60 + 1) + 60),
+    some2: Math.floor(Math.random(700 - 250 + 1) + 250),
     
-    randomPlayer: Math.floor(Math.random() * 3) + 1 ,
+    imageGame: new Image(),
+    
+
+    randomPlayer: Math.floor(Math.random() * 3) + 1,
 
     init: function () {
         this.canvas = document.getElementById('canvas');
@@ -32,13 +36,14 @@ const Game = {
 
     start: function () {
         this.reset()
+        this.drawPlayer();
         this.interval = setInterval(() => {
             this.framesCounter++;
 
             this.clear();
 
             this.drawAll();
-            this.drawPlayer();
+            
             this.moveAll();
 
             this.clearObstacles()
@@ -49,12 +54,12 @@ const Game = {
 
 
             if (this.isCollision() && this.isBreakable()) this.obstacles.shift()
-            if (this.player.bullets.length > 0){
-            if (this.isCollisionBulletBomb()) {
-                this.bombs.shift();
-                console.log(this.bombs)
+            if (this.player.bullets.length > 0) {
+                if (this.isCollisionBulletBomb()) {
+                    this.bombs.shift();
+                    console.log(this.bombs)
+                }
             }
-        }
             if (this.isCollision()) this.gameOver()
 
             if (this.framesCounter > 1000) this.framesCounter = 0;
@@ -64,20 +69,15 @@ const Game = {
 
     reset: function () {
         this.background = new Background(this.ctx, this.width, this.height);
+
         
-        if (this.randomPlayer == 1) {
-            this.player = new Player(this.ctx, this.width * 0.08, this.height * 0.20, 'imgs/run-sito.png','imgs/empuuuuuje-sito.png','imgs/agacharsecon-sito.png','imgs/jump-sito.png', this.width, this.height, this.playerKeys, false, false);
-        } else if (this.randomPlayer == 2) {
-            this.player = new Player(this.ctx, this.width * 0.08, this.height * 0.20, 'imgs/run-carlos.png','imgs/empuuuuuje-carlos.png','imgs/agacharsecon-carlos.png','imgs/jump-carlos.png', this.width, this.height, this.playerKeys, false, false);
-        }
-        else {
-            this.player = new Player(this.ctx, this.width * 0.08, this.height * 0.20, 'imgs/run.png','imgs/empuuuuuje-lore.png','imgs/agacharsecon-lore.png','imgs/jump-lore.png', this.width, this.height, this.playerKeys, false, false);
-        }
         
+
         this.obstacles = [];
         this.obstacles2 = [];
         this.bombs = [];
-        this.facePlayer=[];
+        this.facePlayer = [];
+        
 
         this.isPaused = false;
         this.isResume = true;
@@ -100,18 +100,29 @@ const Game = {
         this.bombs.forEach(bomb => bomb.draw())
         ScoreBoard.draw(this.score)
         BestScoreBoard.draw(this.bestScore)
+        this.imageGame.src = "imgs/hector.png"
     },
 
-    drawPlayer: function(){
+    drawPlayer: function () {
         if (this.randomPlayer == 1) {
-            this.facePlayer.push(new FacePlayer(this.ctx, this.width * 0.05, this.height * 0.10, 'imgs/sitoface.png', this.width * 0.50, this.height * 0.01))
+            this.player = new Player(this.ctx, this.width * 0.08, this.height * 0.20, 'imgs/run-sito.png', 'imgs/empuuuuuje-sito.png', 'imgs/agacharsecon-sito.png', 'imgs/jump-sito.png', this.width, this.height, this.playerKeys, false, false);
         } else if (this.randomPlayer == 2) {
-            this.facePlayer.push(new FacePlayer(this.ctx, this.width * 0.05, this.height * 0.10, 'imgs/carlosface.png', this.width * 0.50, this.height * 0.01))
+            this.player = new Player(this.ctx, this.width * 0.08, this.height * 0.20, 'imgs/run-carlos.png', 'imgs/empuuuuuje-carlos.png', 'imgs/agacharsecon-carlos.png', 'imgs/jump-carlos.png', this.width, this.height, this.playerKeys, false, false);
         }
         else {
-            this.facePlayer.push(new FacePlayer(this.ctx, this.width * 0.05, this.height * 0.10, 'imgs/face-lore.png', this.width * 0.50, this.height * 0.01))
+            this.player = new Player(this.ctx, this.width * 0.08, this.height * 0.20, 'imgs/run-lore.png', 'imgs/empuuuuuje-lore.png', 'imgs/agacharsecon-lore.png', 'imgs/jump-lore.png', this.width, this.height, this.playerKeys, false, false);
         }
-          
+
+        if (this.randomPlayer == 1) {
+            this.facePlayer.push(new FacePlayer(this.ctx, this.width * 0.05, this.height * 0.10, 'imgs/sitoface.png', this.width * 0.70, this.height * 0.01, "Sito"))
+        } else if (this.randomPlayer == 2) {
+            this.facePlayer.push(new FacePlayer(this.ctx, this.width * 0.05, this.height * 0.10, 'imgs/carlosface.png', this.width * 0.70, this.height * 0.01, "Carlos"))
+        }
+        else {
+            this.facePlayer.push(new FacePlayer(this.ctx, this.width * 0.05, this.height * 0.10, 'imgs/face-lore.png', this.width * 0.70, this.height * 0.01, "Lorena"))
+        }
+
+
     },
 
     moveAll: function () {
@@ -158,30 +169,34 @@ const Game = {
             this.bestScore = this.score;
             alert("NEW RECORD")
         }
-        clearInterval(this.interval)
+
+        
+        this.ctx.drawImage(this.imageGame,50,50,300,300)
+        
+        
+        
+        
+            clearInterval(this.interval)
+       
+        
 
     },
 
-    
-    
-    
+
+
+
 
     isCollision: function () {
-        // colisiones genéricas
-        // (p.x + p.w > o.x && o.x + o.w > p.x && p.y + p.h > o.y && o.y + o.h > p.y )
-        if (this.obstacles.some(obs => (this.player.posX + (this.player.width - (this.player.width/4)) > obs.posX && obs.posX + obs.width > this.player.posX && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY)) || this.bombs.some(bomb => (this.player.posX + this.player.width > bomb.posX && bomb.posX + bomb.width > this.player.posX && this.player.posY + this.player.height > bomb.posY && bomb.posY + bomb.height > this.player.posY))) {
+
+        if (this.obstacles.some(obs => (this.player.posX + (this.player.width - (this.player.width / 4)) > obs.posX && obs.posX + (obs.width - (obs.width/4)) > this.player.posX && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY)) || this.bombs.some(bomb => (this.player.posX + this.player.width > bomb.posX && bomb.posX + bomb.width > this.player.posX && this.player.posY + this.player.height > bomb.posY && bomb.posY + bomb.height > this.player.posY))) {
             return true
         }
 
     },
     isCollisionBulletBomb: function () {
-        // colisiones genéricas
-        // (p.x + p.w > o.x && o.x + o.w > p.x && p.y + p.h > o.y && o.y + o.h > p.y )
+
         if (this.bombs.some(bomb => (this.player.bullets[0].posX + this.player.bullets[0].width > bomb.posX && bomb.posX + bomb.width > this.player.bullets[0].posX && this.player.bullets[0].posY + this.player.bullets[0].height > bomb.posY && bomb.posY + bomb.height > this.player.bullets[0].posY))
         ) { return true }
-        else if (this.bombs.some(bomb => (this.player.bullets[1].posX + this.player.bullets[1].width > bomb.posX && bomb.posX + bomb.width > this.player.bullets[1].posX && this.player.bullets[1].posY + this.player.bullets[1].height > bomb.posY && bomb.posY + bomb.height > this.player.bullets[1].posY))) { return true }
-        else if (this.bombs.some(bomb => (this.player.bullets[2].posX + this.player.bullets[2].width > bomb.posX && bomb.posX + bomb.width > this.player.bullets[2].posX && this.player.bullets[2].posY + this.player.bullets[2].height > bomb.posY && bomb.posY + bomb.height > this.player.bullets[2].posY))) { return true }
-        else { return false }
     },
 
     isBreakable: function () {
@@ -203,6 +218,7 @@ const Game = {
         this.obstacles = this.obstacles.filter(obstacle => (obstacle.posX >= -5))
         this.obstacles2 = this.obstacles2.filter(obstacle => (obstacle.posX >= -5))
         this.bombs = this.bombs.filter(bomb => bomb.posY < this.height + 20)
+        this.player.bullets = this.player.bullets.filter(bullet => bullet.posY > 0)
     },
 
     pauseGame: function () {
@@ -216,12 +232,15 @@ const Game = {
 
     fakeStart: function () {
         if (this.isResume === true && this.isPaused === true) {
+            this.isPaused = false
+            this.drawPlayer();
             this.interval = setInterval(() => {
                 this.framesCounter++;
     
                 this.clear();
     
                 this.drawAll();
+                
                 this.moveAll();
     
                 this.clearObstacles()
@@ -232,12 +251,12 @@ const Game = {
     
     
                 if (this.isCollision() && this.isBreakable()) this.obstacles.shift()
-                if (this.player.bullets.length > 0){
-                if (this.isCollisionBulletBomb()) {
-                    this.bombs.shift();
-                    console.log(this.bombs)
+                if (this.player.bullets.length > 0) {
+                    if (this.isCollisionBulletBomb()) {
+                        this.bombs.shift();
+                        console.log(this.bombs)
+                    }
                 }
-            }
                 if (this.isCollision()) this.gameOver()
     
                 if (this.framesCounter > 1000) this.framesCounter = 0;

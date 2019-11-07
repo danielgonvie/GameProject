@@ -1,5 +1,5 @@
 class FacePlayer {
-    constructor(ctx, width, height, image, posX, posY) {
+    constructor(ctx, width, height, image, posX, posY, text) {
       this.ctx = ctx;
       this.width = width;
       this.height = height;
@@ -9,9 +9,10 @@ class FacePlayer {
   
       this.posX = posX
       this.posY = posY
+      this.text = text
     }
   
-    draw() {
+    draw(text) {
       this.ctx.drawImage(
         this.image,
         this.posX,
@@ -19,6 +20,12 @@ class FacePlayer {
         this.width,
         this.height
       )
+      /* 
+        this.ctx.fillStyle = 'white'
+        this.ctx.font = '40px sans-serif'
+        this.ctx.fillText(text, 25, 35) */
+      
     }
+    
   
   }
