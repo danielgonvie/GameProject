@@ -176,7 +176,7 @@ class Player {
 
         case this.keys.A_KEY: //fire up
           if (this.bullets.length < 3) {
-            this.bullets.push(new Bullet(this.ctx, 20, 20, "imgs/red-square.png", this.posX + this.width / 2, this.posY, "bullet", 0, 10));
+            this.bullets.push(new Bullet(this.ctx, 100, 50, "imgs/NOPE.png", this.posX + this.width / 2, this.posY, "bullet", 0, 10));
           }
           break;
 

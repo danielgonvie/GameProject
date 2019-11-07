@@ -60,7 +60,17 @@ const Game = {
 
     reset: function () {
         this.background = new Background(this.ctx, this.width, this.height);
-        this.player = new Player(this.ctx, this.width * 0.08, this.height * 0.20, 'imgs/run.png','imgs/empuuuuuje.png','imgs/agacharsecon.png','imgs/jump.png', this.width, this.height, this.playerKeys, false, false);
+        let randomFactor = 0
+        randomFactor = Math.floor(Math.random() * 3) + 1
+        if (randomFactor == 1) {
+            this.player = new Player(this.ctx, this.width * 0.08, this.height * 0.20, 'imgs/run.png','imgs/empuuuuuje.png','imgs/agacharsecon.png','imgs/jump.png', this.width, this.height, this.playerKeys, false, false);
+        } else if (randomFactor == 2) {
+            this.player = new Player(this.ctx, this.width * 0.08, this.height * 0.20, 'imgs/run.png','imgs/empuuuuuje.png','imgs/agacharsecon.png','imgs/jump.png', this.width, this.height, this.playerKeys, false, false);
+        }
+        else {
+            this.player = new Player(this.ctx, this.width * 0.08, this.height * 0.20, 'imgs/run.png','imgs/empuuuuuje.png','imgs/agacharsecon.png','imgs/jump.png', this.width, this.height, this.playerKeys, false, false);
+        }
+        
         this.obstacles = [];
         this.obstacles2 = [];
         this.bombs = [];
