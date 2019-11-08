@@ -12,7 +12,7 @@ This project has been done with the html canvas, a bit of CSS and a lot of messy
 
 ## SEPECIAL THANKS 💖
 I'm so glad to have my teammates that i had fun with this week.
-A BIG THANKS AN A BEER to my TA Lorena, that endured this calamity for a entire week.
+A BIG THANKS AND A BEER to my TA Lorena, that endured this calamity for a entire week.
 And the entire team of Ironhack for making me feel so motivated and cool with the 💩 I did.
 
 ## DISCLAIMER ❗
