@@ -83,3 +83,24 @@ a {
     top: 56%;
     right: 7%;
 }
+
+#dani {
+    position: fixed;
+    top: 85%;
+    left: 10%;
+}
+#lore {
+    position: fixed;
+    top: 85%;
+    left: 25%;
+}
+#sito {
+    position: fixed;
+    top: 85%;
+    right: 25%;
+}
+#carl {
+    position: fixed;
+    top: 85%;
+    right: 10%;
+}
