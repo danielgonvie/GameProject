@@ -69,7 +69,9 @@ const Game = {
     },
 
     reset: function () {
-        this.background = new Background(this.ctx, this.width, this.height);
+        this.background = new Background(this.ctx, this.width, this.height*0.75, "img/Background-back.png",0,0, 2);
+        this.background2 = new Background(this.ctx, this.width, this.height*0.30, "img/Background-front.png",0,this.height*0.60, 4);
+        this.background3 = new Background(this.ctx, this.width, this.height/4, "img/Background-ground.png",0,this.height*0.84, 8);
         
         this.gameOverSound = new Audio("audio/gameover.mp3")
         this.victorySound = new Audio("audio/victory fanfare.mp3")
@@ -95,6 +97,8 @@ const Game = {
 
     drawAll: function () {
         this.background.draw();
+        this.background2.draw();
+        this.background3.draw();
         this.player.draw(this.framesCounter);
         this.facePlayer.forEach(face => face.draw())
         this.obstacles.forEach(obstacle => obstacle.draw())
@@ -130,6 +134,8 @@ const Game = {
 
     moveAll: function () {
         this.background.move()
+        this.background2.move()
+        this.background3.move()
         this.player.move()
         this.obstacles.forEach(obstacle => obstacle.move())
         this.obstacles2.forEach(obstacle => obstacle.move())
