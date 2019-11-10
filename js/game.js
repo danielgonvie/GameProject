@@ -213,10 +213,10 @@ const Game = {
         }
     },
     clearObstacles: function () {
-        this.obstacles = this.obstacles.filter(obstacle => (obstacle.posX >= -5))
-        this.obstacles2 = this.obstacles2.filter(obstacle => (obstacle.posX >= -5))
+        this.obstacles = this.obstacles.filter(obstacle => (obstacle.posX >= -20))
+        this.obstacles2 = this.obstacles2.filter(obstacle => (obstacle.posX >= -20))
         this.bombs = this.bombs.filter(bomb => bomb.posY < this.height + 20)
-        this.player.bullets = this.player.bullets.filter(bullet => bullet.posY > 0)
+        this.player.bullets = this.player.bullets.filter(bullet => bullet.posY > 50)
     },
 
     pauseGame: function () {
