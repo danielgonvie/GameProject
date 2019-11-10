@@ -10,7 +10,7 @@ const Game = {
         S_KEY: 83,
         D_KEY: 68,
         A_KEY: 65,
-        ENTER_KEY: 13,
+        
     },
     score: 0,
     bestScore: 50,
@@ -71,16 +71,16 @@ const Game = {
     reset: function () {
         this.background = new Background(this.ctx, this.width, this.height*0.75, "img/Background-back.png",0,0, 2);
         this.background2 = new Background(this.ctx, this.width, this.height*0.30, "img/Background-front.png",0,this.height*0.60, 4);
-        this.background3 = new Background(this.ctx, this.width, this.height/4, "img/Background-ground.png",0,this.height*0.84, 8);
+        this.background3 = new Background(this.ctx, this.width, this.height/4, "img/Background-ground.png",0,this.height*0.84, 10);
         
         this.gameOverSound = new Audio("audio/gameover.mp3")
         this.victorySound = new Audio("audio/victory fanfare.mp3")
-        this.archivo = new Audio("audio/archivo.mp3")
+        
 
         this.obstacles = [];
         this.obstacles2 = [];
         this.bombs = [];
-        this.facePlayer = [];
+        
         
 
         this.isPaused = false;
@@ -100,10 +100,10 @@ const Game = {
         this.background2.draw();
         this.background3.draw();
         this.player.draw(this.framesCounter);
-        this.facePlayer.forEach(face => face.draw())
-        this.obstacles.forEach(obstacle => obstacle.draw())
-        this.obstacles2.forEach(obstacle => obstacle.draw())
-        this.bombs.forEach(bomb => bomb.draw())
+        
+        this.obstacles.forEach(obstacle => obstacle.draw(this.framesCounter))
+        this.obstacles2.forEach(obstacle => obstacle.draw(this.framesCounter))
+        this.bombs.forEach(bomb => bomb.draw(this.framesCounter))
         ScoreBoard.draw(this.score)
         BestScoreBoard.draw(this.bestScore)
         
@@ -120,15 +120,7 @@ const Game = {
             this.player = new Player(this.ctx, this.width * 0.08, this.height * 0.20, 'imgs/run-lore.png', 'imgs/empuuuuuje-lore.png', 'imgs/agacharsecon-lore.png', 'imgs/jump-lore.png', this.width, this.height, this.playerKeys, false, false);
         }
 
-        if (this.randomPlayer == 1) {
-            this.facePlayer.push(new FacePlayer(this.ctx, this.width * 0.05, this.height * 0.10, 'imgs/sitoface.png', this.width * 0.70, this.height * 0.01, "Sito"))
-        } else if (this.randomPlayer == 2) {
-            this.facePlayer.push(new FacePlayer(this.ctx, this.width * 0.05, this.height * 0.10, 'imgs/carlosface.png', this.width * 0.70, this.height * 0.01, "Carlos"))
-        }
-        else {
-            this.facePlayer.push(new FacePlayer(this.ctx, this.width * 0.05, this.height * 0.10, 'imgs/face-lore.png', this.width * 0.70, this.height * 0.01, "Lorena"))
-        }
-
+       
 
     },
 
@@ -150,24 +142,24 @@ const Game = {
         let randomFactor = 0
         randomFactor = Math.floor(Math.random() * 3) + 1
         if (randomFactor == 1) {
-            this.obstacles.push(new Obstacle(this.ctx, this.width * 0.06, this.height * 0.10, 'imgs/fran.png', this.width, this.height, this.width, this.height * 0.95 - this.height * 0.10, "unstoppable", 10, 0))
+            this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'img/obstaculo-tierra.png', this.width, this.height, this.width, this.height * 0.95 - this.height * 0.10, "unstoppable", 10, 0, 6))
         } else if (randomFactor == 2) {
-            this.obstacles.push(new Obstacle(this.ctx, this.width * 0.06, this.height * 0.10, 'imgs/hector.png', this.width, this.height, this.width, this.height * 0.95 - this.height * 0.25, "unstoppable", 10, 0))
+            this.obstacles.push(new Obstacle(this.ctx, this.width * 0.10, this.height * 0.10, 'img/obstaculo-semiterraneo.png', this.width, this.height, this.width, this.height * 0.95 - this.height * 0.25, "unstoppable", 10, 0, 2))
         }
         else {
-            this.obstacles.push(new Obstacle(this.ctx, this.width * 0.06, this.height * 0.30, 'imgs/muro.png', this.width, this.height, this.width, this.height * 0.95 - this.height * 0.30, "breakable", 10, 0))
+            this.obstacles.push(new Obstacle(this.ctx, this.width * 0.11, this.height * 0.25, 'img/obstaculo-muro.png', this.width, this.height, this.width, this.height * 0.70, "breakable", 10, 0, 1))
         }
 
     },
 
     generateObstacles2: function () {
-        this.obstacles2.push(new Obstacle(this.ctx, this.width * 0.06, this.height * 0.12, 'imgs/dani.png', this.width, this.height, this.width, this.height * 0.20 - this.height * 0.10, "unstoppable", 5, 0))
+        this.obstacles2.push(new Obstacle(this.ctx, this.width * 0.06, this.height * 0.12, 'img/obstaculo-aire.png', this.width, this.height, this.width, this.height * 0.20 - this.height * 0.10, "unstoppable", 5, 0, 2))
     },
 
     generateBomb: function () {
 
         if (this.bombs.length < 2) {
-            this.bombs.push(new Obstacle(this.ctx, this.width * 0.06, this.height * 0.10, 'imgs/filedrop.png', this.width, this.height, this.width * 0.07, this.height * 0.30 - this.height * 0.10, "destroyable", 0, 5))
+            this.bombs.push(new Obstacle(this.ctx, this.width * 0.06, this.height * 0.10, 'img/bulletbomb.png', this.width, this.height, this.width * 0.07, this.height * 0.30 - this.height * 0.10, "destroyable", 0, 5, 2))
             this.archivo.play()
         }
     },
