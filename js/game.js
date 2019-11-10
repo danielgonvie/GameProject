@@ -169,7 +169,7 @@ const Game = {
 
         this.gameOverSound.play()}
 
-        this.ctx.drawImage(this.imageGame,this.width*0.27,this.height*0.20,700,300)
+        this.ctx.drawImage(this.imageGame,this.width*0.25,this.height*0.20,700,300)
         
         
         
