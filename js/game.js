@@ -21,7 +21,7 @@ const Game = {
     
     
 
-    randomPlayer: Math.floor(Math.random() * 3) + 1,
+    
 
     init: function () {
         this.canvas = document.getElementById('canvas');
@@ -107,18 +107,13 @@ const Game = {
         ScoreBoard.draw(this.score)
         BestScoreBoard.draw(this.bestScore)
         
-        this.imageGame.src = "imgs/gameoverBIEN.png"
+        this.imageGame.src = "img/gameoverBIEN.png"
     },
 
     drawPlayer: function () {
-        if (this.randomPlayer == 1) {
-            this.player = new Player(this.ctx, this.width * 0.08, this.height * 0.20, 'imgs/run-sito.png', 'imgs/empuuuuuje-sito.png', 'imgs/agacharsecon-sito.png', 'imgs/jump-sito.png', this.width, this.height, this.playerKeys, false, false);
-        } else if (this.randomPlayer == 2) {
-            this.player = new Player(this.ctx, this.width * 0.08, this.height * 0.20, 'imgs/run-carlos.png', 'imgs/empuuuuuje-carlos.png', 'imgs/agacharsecon-carlos.png', 'imgs/jump-carlos.png', this.width, this.height, this.playerKeys, false, false);
-        }
-        else {
-            this.player = new Player(this.ctx, this.width * 0.08, this.height * 0.20, 'imgs/run-lore.png', 'imgs/empuuuuuje-lore.png', 'imgs/agacharsecon-lore.png', 'imgs/jump-lore.png', this.width, this.height, this.playerKeys, false, false);
-        }
+        
+            this.player = new Player(this.ctx, this.width * 0.08, this.height * 0.20, 'img/run.png', 'img/empuuuuuje.png', 'img/agacharsecon.png', 'img/jump.png', this.width, this.height, this.playerKeys, false, false);
+       
 
        
 
