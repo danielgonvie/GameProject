@@ -144,7 +144,7 @@ const Game = {
         if (randomFactor == 1) {
             this.obstacles.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.10, 'img/obstaculo-tierra.png', this.width, this.height, this.width, this.height * 0.95 - this.height * 0.10, "unstoppable", 10, 0, 6))
         } else if (randomFactor == 2) {
-            this.obstacles.push(new Obstacle(this.ctx, this.width * 0.10, this.height * 0.10, 'img/obstaculo-semiterraneo.png', this.width, this.height, this.width, this.height * 0.95 - this.height * 0.25, "unstoppable", 10, 0, 2))
+            this.obstacles.push(new Obstacle(this.ctx, this.width * 0.11, this.height * 0.09, 'img/obstaculo-semiterraneo.png', this.width, this.height, this.width, this.height * 0.95 - this.height * 0.25, "unstoppable", 10, 0, 2))
         }
         else {
             this.obstacles.push(new Obstacle(this.ctx, this.width * 0.11, this.height * 0.25, 'img/obstaculo-muro.png', this.width, this.height, this.width, this.height * 0.70, "breakable", 10, 0, 1))
@@ -153,13 +153,13 @@ const Game = {
     },
 
     generateObstacles2: function () {
-        this.obstacles2.push(new Obstacle(this.ctx, this.width * 0.06, this.height * 0.12, 'img/obstaculo-aire.png', this.width, this.height, this.width, this.height * 0.20 - this.height * 0.10, "unstoppable", 5, 0, 2))
+        this.obstacles2.push(new Obstacle(this.ctx, this.width * 0.19, this.height * 0.20, 'img/obstaculo-aire.png', this.width, this.height, this.width, this.height * 0.20 - this.height * 0.10, "unstoppable", 5, 0, 2))
     },
 
     generateBomb: function () {
 
         if (this.bombs.length < 2) {
-            this.bombs.push(new Obstacle(this.ctx, this.width * 0.06, this.height * 0.10, 'img/bulletbomb.png', this.width, this.height, this.width * 0.07, this.height * 0.30 - this.height * 0.10, "destroyable", 0, 5, 2))
+            this.bombs.push(new Obstacle(this.ctx, this.width * 0.04, this.height * 0.12, 'img/bulletbomb.png', this.width, this.height, this.width * 0.07, this.height * 0.30 - this.height * 0.10, "destroyable", 0, 5, 2))
             this.archivo.play()
         }
     },
