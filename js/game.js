@@ -186,7 +186,7 @@ const Game = {
 
     isCollision: function () {
 
-        if (this.obstacles.some(obs => (this.player.posX + (this.player.width - (this.player.width / 4)) > obs.posX && obs.posX + (obs.width - (obs.width/4)) > this.player.posX && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY)) || this.bombs.some(bomb => (this.player.posX + this.player.width > bomb.posX && bomb.posX + bomb.width > this.player.posX && this.player.posY + this.player.height > bomb.posY && bomb.posY + bomb.height > this.player.posY))) {
+        if (this.obstacles.some(obs => (this.player.posX + (this.player.width - (this.player.width / 4)) > obs.posX && obs.posX + (obs.width - (obs.width/3)) > this.player.posX && this.player.posY + this.player.height > obs.posY && obs.posY + obs.height > this.player.posY)) || this.bombs.some(bomb => (this.player.posX + this.player.width > bomb.posX && bomb.posX + bomb.width > this.player.posX && this.player.posY + this.player.height > bomb.posY && bomb.posY + bomb.height > this.player.posY))) {
             return true
         }
 
